@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -25,10 +25,14 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
         await self.session.commit()
         return TronAddressInfoResponseSchema.model_validate(new_tron_address_info)
 
-    async def get_all_tron_address_info(self) -> List[TronAddressInfoResponseSchema]:
-        all_tron_address_info_sqlalchemy = await self.session.execute(
-            select(TronAddressInfo)
-        )
+    async def get_all_tron_address_info(
+        self, offset: Optional[int] = 0, limit: Optional[int] = None
+    ) -> List[TronAddressInfoResponseSchema]:
+        query = select(TronAddressInfo).offset(offset)
+        if limit is not None:
+            query = query.limit(limit)
+
+        all_tron_address_info_sqlalchemy = await self.session.execute(query)
         all_tron_address_info = [
             TronAddressInfoResponseSchema.model_validate(a)
             for a in all_tron_address_info_sqlalchemy.scalars().all()

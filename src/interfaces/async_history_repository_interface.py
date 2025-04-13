@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import List
+from typing import List, Optional
 
 from src.schemas import TronAddressInfoSchema, TronAddressInfoResponseSchema
 
@@ -13,6 +13,6 @@ class AsyncHistoryRepositoryInterface(ABC):
         pass
 
     @abstractmethod
-    async def get_all_tron_address_info(self) -> List[TronAddressInfoResponseSchema]:
+    async def get_all_tron_address_info(self, offset: Optional[int] = 0, limit: Optional[int] = None) -> List[TronAddressInfoResponseSchema]:
         """Получить историю всех запросов"""
         pass
