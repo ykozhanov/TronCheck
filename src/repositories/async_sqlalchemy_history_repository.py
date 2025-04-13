@@ -4,7 +4,8 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from src.interfaces import AsyncHistoryRepositoryInterface
-from src.models import TronAddressInfo, TronAddressInfoSQLAlchemy
+from src.models import TronAddressInfo
+from src.schemas import TronAddressInfoSchema, TronAddressInfoResponseSchema
 
 
 class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
@@ -12,9 +13,9 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
         self.session = session
 
     async def add_tron_address_info(
-        self, tron_address_info: TronAddressInfo
-    ) -> TronAddressInfo:
-        new_tron_address_info = TronAddressInfoSQLAlchemy(
+        self, tron_address_info: TronAddressInfoSchema
+    ) -> TronAddressInfoResponseSchema:
+        new_tron_address_info = TronAddressInfo(
             address=tron_address_info.address,
             balance_trx=tron_address_info.balance_trx,
             bandwidth=tron_address_info.bandwidth,
@@ -22,26 +23,14 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
         )
         self.session.add(new_tron_address_info)
         await self.session.commit()
-        return TronAddressInfo(
-            id=new_tron_address_info.id,
-            address=new_tron_address_info.address,
-            balance_trx=new_tron_address_info.balance_trx,
-            bandwidth=new_tron_address_info.bandwidth,
-            energy_limit=new_tron_address_info.energy_limit,
-        )
+        return TronAddressInfoResponseSchema.model_validate(new_tron_address_info)
 
-    async def get_all_tron_address_info(self) -> List[TronAddressInfo]:
+    async def get_all_tron_address_info(self) -> List[TronAddressInfoResponseSchema]:
         all_tron_address_info_sqlalchemy = await self.session.execute(
-            select(TronAddressInfoSQLAlchemy)
+            select(TronAddressInfo)
         )
         all_tron_address_info = [
-            TronAddressInfo(
-                id=a.id,
-                address=a.address,
-                balance_trx=a.balance_trx,
-                bandwidth=a.bandwidth,
-                energy_limit=a.energy_limit,
-            )
+            TronAddressInfoResponseSchema.model_validate(a)
             for a in all_tron_address_info_sqlalchemy.scalars().all()
         ]
         return all_tron_address_info

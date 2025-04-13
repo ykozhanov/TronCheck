@@ -1,12 +1,13 @@
-from dataclasses import dataclass
 from decimal import Decimal
-from typing import Optional
+from sqlalchemy.orm import Mapped, mapped_column
+from src.core.db import Base
 
 
-@dataclass
-class TronAddressInfo:
-    address: str
-    balance_trx: Decimal
-    bandwidth: int
-    energy_limit: int
-    id: Optional[int] = None
+class TronAddressInfo(Base):
+    __tablename__ = "tron_address_info"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    address: Mapped[str]
+    balance_trx: Mapped[Decimal]
+    bandwidth: Mapped[int]
+    energy_limit: Mapped[int]
