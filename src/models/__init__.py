@@ -1,3 +1,3 @@
-from .tron_address_info import TronAddressInfo
+from .tron_info import TronInfo
 
-__all__ = [TronAddressInfo]
+__all__ = [TronInfo]

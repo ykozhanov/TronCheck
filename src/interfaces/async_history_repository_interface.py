@@ -1,18 +1,18 @@
 from abc import ABC, abstractmethod
-from typing import List, Optional
+from typing import Optional
 
-from src.schemas import TronAddressInfoSchema, TronAddressInfoResponseSchema
+from src.schemas import TronInfoSchema, TronInfoResponseSchema, HistoryResponseSchema
 
 
 class AsyncHistoryRepositoryInterface(ABC):
     """Асинхронный репозиторий для работы с историей запросов информации об адресах Tron"""
 
     @abstractmethod
-    async def add_tron_address_info(self, tron_address_info: TronAddressInfoSchema) -> TronAddressInfoResponseSchema:
+    async def create(self, tron_info: TronInfoSchema) -> TronInfoResponseSchema:
         """Добавить информацию о запросе информации об адресе Tron в историю"""
         pass
 
     @abstractmethod
-    async def get_all_tron_address_info(self, offset: Optional[int] = 0, limit: Optional[int] = None) -> List[TronAddressInfoResponseSchema]:
+    async def get_all(self, offset: Optional[int] = None, limit: Optional[int] = None) -> HistoryResponseSchema:
         """Получить историю всех запросов"""
         pass

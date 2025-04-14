@@ -1,4 +1,4 @@
-from .async_tron_repository_interface import AsyncTronRepositoryInterface
+from .async_tron_info_repository_interface import AsyncTronInfoRepositoryInterface
 from .async_history_repository_interface import AsyncHistoryRepositoryInterface
 
-__all__ = [AsyncTronRepositoryInterface, AsyncHistoryRepositoryInterface]
+__all__ = [AsyncTronInfoRepositoryInterface, AsyncHistoryRepositoryInterface]

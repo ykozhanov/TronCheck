@@ -1,3 +1,17 @@
-from .tron_address_info_schemas import TronAddressInfoSchema, TronAddressInfoResponseSchema
+from .history_schemas import HistoryResponseSchema, PaginatorHistorySchema
 
-__all__ = [TronAddressInfoSchema, TronAddressInfoResponseSchema]
+from .tron_info_schemas import (
+    TronInfoSchema,
+    TronAccountInfoSchema,
+    TronInfoResponseSchema,
+    TronResourceInfoSchema,
+)
+
+__all__ = [
+    TronInfoSchema,
+    TronAccountInfoSchema,
+    TronInfoResponseSchema,
+    TronResourceInfoSchema,
+    HistoryResponseSchema,
+    PaginatorHistorySchema,
+]
