@@ -1,7 +1,7 @@
 from decimal import Decimal
 
 from src.interfaces import AsyncTronInfoRepositoryInterface
-from src.schemas import TronInfoSchema, TronResourceInfoSchema
+from src.schemas import TronInfoCreateSchema, TronResourceInfoSchema
 
 
 class AsyncTronInfoService:
@@ -23,7 +23,7 @@ class AsyncTronInfoService:
     def _get_energy_free(acc_res: TronResourceInfoSchema) -> int:
         return acc_res.energy_limit - acc_res.energy_used
 
-    async def get_base_info(self, address: str) -> TronInfoSchema:
+    async def get_base_info(self, address: str) -> TronInfoCreateSchema:
         acc_info = await self.tron_info_repo.get_account_info(address)
         acc_res = await self.tron_info_repo.get_account_resource(address)
 
@@ -31,7 +31,7 @@ class AsyncTronInfoService:
         bandwidth = self._get_bandwidth(acc_res)
         energy_free = self._get_energy_free(acc_res)
 
-        return TronInfoSchema(
+        return TronInfoCreateSchema(
             address=address,
             balance_trx=balance_trx,
             bandwidth=bandwidth,

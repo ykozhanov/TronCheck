@@ -1,6 +1,6 @@
-def main():
-    print("Hello from troncheck!")
+from fastapi import FastAPI
+from src.app.utils import add_routers
 
+app = FastAPI()
 
-if __name__ == "__main__":
-    main()
+add_routers(app)

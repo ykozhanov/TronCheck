@@ -1,9 +1,8 @@
-from .domain_exceprions import DomainException, NotFoundException, ConflictException
-from .tron_exceptions import TronAddressNotFoundException
+from .domain_exceprions import DomainException, ValidationException
+from .history_exceptions import HistoryPaginatorValidationException
 
 __all__ = [
     DomainException,
-    NotFoundException,
-    ConflictException,
-    TronAddressNotFoundException,
+    ValidationException,
+    HistoryPaginatorValidationException,
 ]

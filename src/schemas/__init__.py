@@ -1,14 +1,16 @@
 from .history_schemas import HistoryResponseSchema, PaginatorHistorySchema
 
 from .tron_info_schemas import (
-    TronInfoSchema,
+    TronInfoRequest,
+    TronInfoCreateSchema,
     TronAccountInfoSchema,
     TronInfoResponseSchema,
     TronResourceInfoSchema,
 )
 
 __all__ = [
-    TronInfoSchema,
+    TronInfoRequest,
+    TronInfoCreateSchema,
     TronAccountInfoSchema,
     TronInfoResponseSchema,
     TronResourceInfoSchema,

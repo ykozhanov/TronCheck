@@ -7,7 +7,7 @@ from src.interfaces import AsyncHistoryRepositoryInterface
 from src.models import TronInfo
 from src.schemas import (
     TronInfoResponseSchema,
-    TronInfoSchema,
+    TronInfoCreateSchema,
     HistoryResponseSchema,
     PaginatorHistorySchema,
 )
@@ -17,7 +17,7 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
     def __init__(self, session: AsyncSession):
         self.session = session
 
-    async def create(self, tron_info: TronInfoSchema) -> TronInfoResponseSchema:
+    async def create(self, tron_info: TronInfoCreateSchema) -> TronInfoResponseSchema:
         new_tron_info = TronInfo(
             address=tron_info.address,
             balance_trx=tron_info.balance_trx,
@@ -29,12 +29,13 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
         return TronInfoResponseSchema.model_validate(new_tron_info)
 
     async def get_all(
-        self, offset: Optional[int] = None, limit: Optional[int] = None
+        self, offset: int = 0, limit: Optional[int] = None
     ) -> HistoryResponseSchema:
         total_query = await self.session.execute(select(func.count(TronInfo)))
         total = total_query.scalar_one()
 
-        query = select(TronInfo).offset(offset or 0)
+        query = select(TronInfo).offset(offset)
+
         if limit is not None:
             query = query.limit(limit)
 

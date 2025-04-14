@@ -3,7 +3,11 @@ from decimal import Decimal
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class TronAccountInfoSchema(BaseModel):
+class TronInfoRequest(BaseModel):
+    address: str
+
+
+class TronAccountInfoSchema(TronInfoRequest):
     address: str
     balance_sun: Decimal = Field(
         ..., alias="balance"
@@ -19,14 +23,14 @@ class TronResourceInfoSchema(BaseModel):
     energy_limit: int = Field(..., alias="EnergyLimit")
 
 
-class TronInfoSchema(BaseModel):
+class TronInfoCreateSchema(BaseModel):
     address: str
     balance_trx: Decimal    # Баланс в TRX
     bandwidth: int          # (freeNetLimit - freeNetUsed) + (NetLimit - NetUsed)
     energy_free: int        # energy_limit - energy_used
 
 
-class TronInfoResponseSchema(TronInfoSchema):
+class TronInfoResponseSchema(TronInfoCreateSchema):
     id: int
 
     model_config = ConfigDict(
