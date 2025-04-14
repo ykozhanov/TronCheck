@@ -7,6 +7,7 @@ from .tron_info_schemas import (
     TronInfoResponseSchema,
     TronResourceInfoSchema,
 )
+from .response_schemas import ResponseSchema, ExceptionSchema
 
 __all__ = [
     TronInfoRequest,
@@ -16,4 +17,6 @@ __all__ = [
     TronResourceInfoSchema,
     HistoryResponseSchema,
     PaginatorHistorySchema,
+    ResponseSchema,
+    ExceptionSchema,
 ]

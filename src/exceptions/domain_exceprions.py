@@ -8,7 +8,19 @@ class DomainException(Exception):
         self.details = kwargs
 
 
+class BadRequestException(DomainException):
+    code = "bad_request"
+    status_code = 400
+    message = "Некорректный запрос"
+
+
+class NotFoundException(DomainException):
+    code = "not_found"
+    status_code = 404
+    message = "Объект не найден"
+
+
 class ValidationException(DomainException):
     code = "validation_failed"
     status_code = 422
-    message = "Некорректные данные"
+    message = "Ошибка валидации"

@@ -1,6 +1,5 @@
-from .domain_exceprions import ValidationException
+from .domain_exceprions import BadRequestException
 
 
-class HistoryPaginatorValidationException(ValidationException):
-    code = 400
+class HistoryPaginatorBadRequestException(BadRequestException):
     message = "Ошибка пагинации истории запросов информации Tron"

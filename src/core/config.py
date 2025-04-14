@@ -1,6 +1,8 @@
 import logging
 from datetime import datetime
 from logging.config import DictConfigurator
+from typing import Optional
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 from pathlib import Path
@@ -73,16 +75,21 @@ logger = logging.getLogger("app")
 
 class Settings(BaseSettings):
     DEBUG: bool = False
+    TESTING: bool = False
     DATABASE_TEST_URL: str = "sqlite+aiosqlite:///:memory"
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
     POSTGRES_HOST: str = "db"
     POSTGRES_PORT: int = 5432
+    API_TRON_URL: Optional[str] = "https://api.nileex.io"
+    API_TRON_KEY: Optional[str] = "f92221d5-7056-4366-b96f-65d3662ec2d9"
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
 
     def get_database_url(self, host: str | None = None) -> str:
+        if self.TESTING:
+            return self.DATABASE_TEST_URL
         return (
             f"postgresql+asyncpg://"
             f"{self.POSTGRES_USER}:"
@@ -91,9 +98,10 @@ class Settings(BaseSettings):
         )
 
     def get_async_tron_client(self) -> AsyncTron:
-        if self.DEBUG:
+        if self.TESTING:
             return AsyncTron(network="nile")
         return AsyncTron()
+
 
 @lru_cache
 def get_settings():

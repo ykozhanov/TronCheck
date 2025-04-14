@@ -31,8 +31,8 @@ class AsyncSQLAlchemyHistoryRepository(AsyncHistoryRepositoryInterface):
     async def get_all(
         self, offset: int = 0, limit: Optional[int] = None
     ) -> HistoryResponseSchema:
-        total_query = await self.session.execute(select(func.count(TronInfo)))
-        total = total_query.scalar_one()
+        total_query = await self.session.execute(select(func.count()).select_from(TronInfo))
+        total = total_query.scalar()
 
         query = select(TronInfo).offset(offset)
 

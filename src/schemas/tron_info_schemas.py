@@ -36,23 +36,3 @@ class TronInfoResponseSchema(TronInfoCreateSchema):
     model_config = ConfigDict(
         from_attributes=True,
     )
-
-
-# TODO Посчитать энергию и пропускную способность
-# (freeNetLimit - freeNetUsed) + (NetLimit - NetUsed)
-# result = {
-#     "balance": balance_trx,
-#     "bandwidth": {
-#         "used": bandwidth_used,
-#         "limit": bandwidth_limit,
-#         "free": max(bandwidth_limit - bandwidth_used, 0)
-#     },
-#     "energy": {
-#         "used": energy_used,
-#         "limit": energy_limit,
-#         "free": max(energy_limit - energy_used, 0)
-#     }
-# }
-
-# TODO Посчитать баланс
-# Баланс в сунгах (1 TRX = 1_000_000 сунгов)  Decimal(info.get("balance", 0)) / 1_000_000

@@ -5,7 +5,7 @@ from src.schemas import TronInfoCreateSchema, TronResourceInfoSchema
 
 
 class AsyncTronInfoService:
-
+    """Асинхронный сервис получения информации Tron"""
     def __init__(self, tron_info_repo: AsyncTronInfoRepositoryInterface):
         self.tron_info_repo = tron_info_repo
 
@@ -24,6 +24,7 @@ class AsyncTronInfoService:
         return acc_res.energy_limit - acc_res.energy_used
 
     async def get_base_info(self, address: str) -> TronInfoCreateSchema:
+        """Получить основную информацию об аккаунте"""
         acc_info = await self.tron_info_repo.get_account_info(address)
         acc_res = await self.tron_info_repo.get_account_resource(address)
 

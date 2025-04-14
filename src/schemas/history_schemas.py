@@ -1,6 +1,6 @@
 from typing import List, Optional
 from pydantic import BaseModel
-from .tron_info_schemas import TronResponseSchema
+from .tron_info_schemas import TronInfoResponseSchema
 
 
 class PaginatorHistorySchema(BaseModel):
@@ -10,5 +10,5 @@ class PaginatorHistorySchema(BaseModel):
 
 
 class HistoryResponseSchema(BaseModel):
-    history: List[TronResponseSchema]
+    history: List[TronInfoResponseSchema]
     paginator: PaginatorHistorySchema
