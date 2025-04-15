@@ -11,6 +11,7 @@ from httpx import AsyncClient, ASGITransport
 from src.main import app
 from src.core.db import Base, engine, AsyncSessionLocal
 from src.models import TronInfo
+from src.schemas import TronInfoCreateSchema
 
 
 @pytest.fixture
@@ -37,7 +38,7 @@ async def setup_db():
 
 
 @pytest.fixture
-def item() -> TronInfo:
+def tron_data() -> TronInfo:
     return TronInfo(
         address="TR3MnVcj3APrAXx2wAY5M8H1tYYYYYYYYY",
         balance_trx=Decimal(100.500),

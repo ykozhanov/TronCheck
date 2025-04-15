@@ -6,8 +6,8 @@ async def test_get_empty_all(client, setup_db):
     assert isinstance(history, list)
 
 
-async def test_get_all(client, setup_db, session, item):
-    session.add(item)
+async def test_get_all(client, setup_db, session, tron_data):
+    session.add(tron_data)
     await session.commit()
 
     response = await client.get("/api/history/")
@@ -17,4 +17,4 @@ async def test_get_all(client, setup_db, session, item):
     history = data["history"]
 
     assert len(history) == 1
-    assert history[0].get("address") == item.address
+    assert history[0].get("address") == tron_data.address
