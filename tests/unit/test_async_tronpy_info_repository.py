@@ -22,4 +22,3 @@ async def test_get_account_info_returns_data():
 
     assert isinstance(result, TronAccountInfoSchema)
     assert result.balance_sun == 100.5
-    

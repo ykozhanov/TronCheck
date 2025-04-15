@@ -40,7 +40,7 @@ async def get_history_query(
     ] = None,
     history_info_service: AsyncHistoryService = Depends(get_async_history_service),
 ) -> HistoryResponseSchema:
-    """Получить историю запросов"""
+    """Получить историю запросов информации о Tron аккаунте"""
     if offset < 0:
         raise HistoryPaginatorBadRequestException(offset=offset, info="Offset не может быть меньше 0")
     if limit and limit <= 0:
