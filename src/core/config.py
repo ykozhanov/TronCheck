@@ -9,7 +9,6 @@ from pathlib import Path
 from tronpy import AsyncTron
 
 LOG_DIR = Path("logs")
-LOG_DIR.mkdir(exist_ok=True)
 
 
 def configure_logging():
@@ -76,7 +75,7 @@ logger = logging.getLogger("app")
 class Settings(BaseSettings):
     DEBUG: bool = False
     TESTING: bool = False
-    DATABASE_TEST_URL: str = "sqlite+aiosqlite:///:memory"
+    DATABASE_TEST_URL: str = "sqlite+aiosqlite:///:memory:"
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
@@ -106,3 +105,9 @@ class Settings(BaseSettings):
 @lru_cache
 def get_settings():
     return Settings()
+
+
+settings = get_settings()
+
+if not settings.TESTING:
+    LOG_DIR.mkdir(exist_ok=True)

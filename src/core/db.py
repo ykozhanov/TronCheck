@@ -1,5 +1,4 @@
 from typing import AsyncGenerator, Dict
-from contextlib import asynccontextmanager
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.orm import declarative_base
 from src.core.config import get_settings
