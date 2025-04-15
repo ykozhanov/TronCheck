@@ -1,3 +1,5 @@
+from typing import Dict
+
 from dotenv import load_dotenv
 
 # Подгружаем переменные из .env
@@ -11,7 +13,6 @@ from httpx import AsyncClient, ASGITransport
 from src.main import app
 from src.core.db import Base, engine, AsyncSessionLocal
 from src.models import TronInfo
-from src.schemas import TronInfoCreateSchema
 
 
 @pytest.fixture
@@ -38,10 +39,10 @@ async def setup_db():
 
 
 @pytest.fixture
-def tron_data() -> TronInfo:
-    return TronInfo(
-        address="TR3MnVcj3APrAXx2wAY5M8H1tYYYYYYYYY",
-        balance_trx=Decimal(100.500),
-        bandwidth=100,
-        energy_free=100,
-    )
+def tron_data() -> Dict:
+    return {
+        "address": "TR3MnVcj3APrAXx2wAY5M8H1tYYYYYYYYY",
+        "balance_trx": Decimal(100.500),
+        "bandwidth": 100,
+        "energy_free": 100,
+    }
